@@ -1,11 +1,9 @@
 import { MagnifyingGlassIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
-import News from "./News";
 
 const Navbar = () => {
   return (
-    <div>
-      <News />
-      <ul className="flex justify-between items-center px-16">
+    <div className="my-2 mx-16">
+      <ul className="flex justify-between items-center">
         {/* left */}
         <li className="hidden lg:flex items-center">
           <div>EN</div>
@@ -23,15 +21,15 @@ const Navbar = () => {
         </li>
 
         {/* middle */}
-        <li className="text-center text-xl">SHOP.</li>
+        <li className="text-center text-4xl">SHOP.</li>
 
         {/* right */}
         <li className="hidden lg:flex space-x-8">
           <div>REGISTER</div>
           <div>SIGN IN</div>
-          <div>
+          <div className="relative">
             <ShoppingCartIcon className="h-6 w-6" />
-            <span className="text-xs rounded-full absolute top-0 ml-6 mt-5">{1}</span>
+            <div className="badge badge-xs absolute top-0 left-6">{1}</div>
           </div>
         </li>
       </ul>
