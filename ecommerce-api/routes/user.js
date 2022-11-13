@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
-const User = require("../models/User");
+const user = require("../models/User");
 
 //Update
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
@@ -9,7 +9,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+    const updatedUser = await user.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
     res.status(200).json(updatedUser);
   } catch (err) {
     res.status(500).json(err);
@@ -19,7 +19,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 //Delete
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.id);
+    await user.findByIdAndDelete(req.params.id);
     res.status(200).json("User has been deleted...");
   } catch (err) {
     res.status(500).json(err);
@@ -29,7 +29,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 //Get user
 router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await user.findById(req.params.id);
     const { password, ...others } = user._doc;
     res.status(200).json(others);
   } catch (err) {
@@ -41,7 +41,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
   try {
-    const users = query ? await User.find().sort({ _id: -1 }).limit(5) : await User.find();
+    const users = query ? await user.find().sort({ _id: -1 }).limit(5) : await User.find();
     res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);
@@ -54,7 +54,7 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
 
   try {
-    const data = await User.aggregate([
+    const data = await user.aggregate([
       { $match: { createdAt: { $gte: lastYear } } },
       { $project: { month: { $month: "$createdAt" } } },
       {
