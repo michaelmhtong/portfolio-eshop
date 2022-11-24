@@ -12,7 +12,7 @@ const Products = ({ cat, filters, sort }) => {
         const res = await axios.get(
           // cat
           //   ? `http://localhost:5000/api/products?category=${cat}`
-          //   : 
+          //   :
           "http://localhost:5000/api/products"
         );
         setProducts(res.data);
@@ -32,9 +32,10 @@ const Products = ({ cat, filters, sort }) => {
     <div className="px-16 my-10">
       <div className="text-2xl">Popular items</div>
       <div className="grid grid-cols-4 gap-4">
-        {filteredProducts.map((item) => (
-          <ProductCard item={item} key={item.id} />
-        ))}
+        {cat
+          ? filteredProducts.map((item) => <ProductCard item={item} key={item.id} />)
+          : products.slice(0, 8).map((item) => <ProductCard item={item} key={item.id} />)
+        }
       </div>
     </div>
   );
