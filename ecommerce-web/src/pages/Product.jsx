@@ -2,8 +2,9 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import News from "../components/News";
-import { sliderItems } from "../data";
 import { publicRequest } from "../requestMethods";
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Product = () => {
   const location = useLocation();
@@ -12,6 +13,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -23,16 +25,8 @@ const Product = () => {
     getProduct();
   }, [id]);
 
-  const handleQuantity = (type) => {
-    if (type === "dec") {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
-
   const handleClick = () => {
-    //update cart
+    dispatch(addProduct({ ...product, quantity, color, size }));
   };
 
   return (
@@ -67,9 +61,9 @@ const Product = () => {
           </div>
           <div className="flex">
             <div className="flex">
-              <button onClick={() => handleQuantity("dec")}>-</button>
+              <button onClick={() => quantity > 1 && setQuantity(quantity - 1)}>-</button>
               <h4>{quantity}</h4>
-              <button onClick={() => handleQuantity("inc")}>+</button>
+              <button onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
             <div>
               <button className="btn" onClick={handleClick}>

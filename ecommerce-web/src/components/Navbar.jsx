@@ -1,6 +1,8 @@
 import { MagnifyingGlassIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
   return (
     <div className="my-2 mx-16">
       <ul className="flex justify-between items-center">
@@ -29,7 +31,7 @@ const Navbar = () => {
           <div>SIGN IN</div>
           <div className="relative">
             <ShoppingCartIcon className="h-6 w-6" />
-            <div className="badge badge-xs absolute top-0 left-6">{1}</div>
+            <div className="badge badge-xs absolute top-0 left-6">{quantity}</div>
           </div>
         </li>
       </ul>
