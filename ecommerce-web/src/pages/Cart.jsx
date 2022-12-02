@@ -1,5 +1,6 @@
 import React from "react";
 import { CheckIcon, ClockIcon, QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import CheckoutButton from "../components/CheckoutButton";
 
 const products = [
   {
@@ -164,12 +165,7 @@ const Cart = () => {
             </dl>
 
             <div className="mt-6">
-              <button
-                type="submit"
-                className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-              >
-                Checkout
-              </button>
+              <CheckoutButton cartItems={products} />
             </div>
           </section>
         </form>
