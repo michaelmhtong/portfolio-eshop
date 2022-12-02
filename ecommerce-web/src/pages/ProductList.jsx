@@ -32,7 +32,7 @@ const ProductList = () => {
         <Navbar />
       </div>
       <div>
-        <div>Men</div>
+        <div>{cat}</div>
         <div>
           Filter:
           <select name="size" onChange={handleFilters} className="select select-sm w-full max-w-xs">
