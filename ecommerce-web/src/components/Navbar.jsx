@@ -1,5 +1,6 @@
 import { MagnifyingGlassIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -23,15 +24,17 @@ const Navbar = () => {
         </li>
 
         {/* middle */}
-        <li className="text-center text-4xl">SHOP.</li>
+        <li className="text-center text-4xl"><Link to="/">SHOP.</Link></li>
 
         {/* right */}
         <li className="hidden lg:flex space-x-8">
-          <div>REGISTER</div>
-          <div>SIGN IN</div>
+          <div><Link to="/register">REGISTER</Link></div>
+          <div><Link to="/login">SIGN IN</Link></div>
           <div className="relative">
-            <ShoppingCartIcon className="h-6 w-6" />
-            <div className="badge badge-xs absolute top-0 left-6">{quantity}</div>
+            <Link to="/cart">
+              <ShoppingCartIcon className="h-6 w-6" />
+              <div className="badge badge-xs absolute top-0 left-6">{quantity}</div>
+            </Link>
           </div>
         </li>
       </ul>
