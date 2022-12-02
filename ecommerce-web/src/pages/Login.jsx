@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
 
   const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, { email, password });
   };
+  
   return (
     <div>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -38,7 +40,7 @@ const Login = () => {
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
-                  Email address
+                  email address
                 </label>
                 <input
                   id="email-address"
@@ -53,7 +55,7 @@ const Login = () => {
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">
-                  Password
+                  password
                 </label>
                 <input
                   id="password"
@@ -67,6 +69,7 @@ const Login = () => {
                 />
               </div>
             </div>
+            {error && <div className="text-red-900">Wrong email or password</div>}
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
@@ -87,12 +90,11 @@ const Login = () => {
                 </a>
               </div>
             </div>
-
             <div>
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={handleClick}
+                onClick={handleClick} disabled={isFetching}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
