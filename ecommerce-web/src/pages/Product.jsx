@@ -25,7 +25,7 @@ const Product = () => {
     getProduct();
   }, [id]);
 
-  const handleClick = () => {
+  const handleAddToCart = () => {
     dispatch(addProduct({ ...product, quantity, color, size }));
   };
 
@@ -66,7 +66,7 @@ const Product = () => {
               <button onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
             <div>
-              <button className="btn" onClick={handleClick}>
+              <button className="btn" onClick={handleAddToCart}>
                 Add to cart
               </button>
               <button className="btn">Add to wish list</button>
