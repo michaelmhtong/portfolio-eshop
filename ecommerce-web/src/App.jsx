@@ -1,22 +1,25 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
-import Men from "./pages/Men";
+import ProductList from "./pages/ProductList";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import Payment from "./pages/Payment";
+import Product from "./pages/Product";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/men" element={<Men />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/login" element={user ? <Navigate replace to="/" /> : <Login />} />
+        <Route path="/register" element={user ? <Navigate replace to="/" /> : <Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/success" element={<Success />} />
