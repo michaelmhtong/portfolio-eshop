@@ -4,20 +4,20 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-// const products = [
-//   {
-//     id: 1,
-//     name: "Basic Tee",
-//     href: "#",
-//     price: "$32.00",
-//     color: "Sienna",
-//     inStock: true,
-//     leadTime: "",
-//     size: "Large",
-//     imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
-//     imageAlt: "Front of men's Basic Tee in sienna.",
-//   }
-// ];
+const products = [
+  {
+    id: 1,
+    name: "Basic Tee",
+    href: "#",
+    price: "$32.00",
+    color: "Sienna",
+    inStock: true,
+    leadTime: "",
+    size: "Large",
+    imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in sienna.",
+  }
+];
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
