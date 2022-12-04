@@ -4,21 +4,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const products = [
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    price: "$32.00",
-    color: "Sienna",
-    inStock: true,
-    leadTime: "",
-    size: "Large",
-    imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in sienna.",
-  }
-];
-
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -27,7 +12,7 @@ const Cart = () => {
     console.log(`Product ID : ${productId}, + - = ${delta}`);
     // event.preventDefault()
     // dispatch(addProduct({ ...product, quantity, color, size }));
-    dispatch(updateProductCount(productId, delta))
+    dispatch(updateProductCount(productId, delta));
   };
 
   //Redux
@@ -35,7 +20,7 @@ const Cart = () => {
   // -> store <-> state difference
   // -> update store will page rendering ? (eg. update cart -> update rerender?)
   // -> Why use Redux and when to use it ?
-  
+
   //React Core
   // -> What is useEffect, what is the common usecase?
   // -> It case infi
@@ -87,7 +72,11 @@ const Cart = () => {
                           <option selected="selected">{product.quantity}</option>
                         </select> */}
                         {/* <div className="flex"> */}
-                        <button onClick={(e)=>{updateProductCount(e, product._id, -1)}}>
+                        <button
+                          onClick={(e) => {
+                            updateProductCount(e, product._id, -1);
+                          }}
+                        >
                           -
                         </button>
                         <h4>{product.quantity}</h4>
@@ -157,7 +146,7 @@ const Cart = () => {
             </dl>
 
             <div className="mt-6">
-              <CheckoutButton cartItems={products} />
+              <CheckoutButton products={cart.products} />
             </div>
           </section>
         </div>

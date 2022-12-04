@@ -1,7 +1,7 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const router = require("express").Router();
-const stripe = require("stripe")(
-  "sk_test_51M6gAOJ18juM3jBwA6MpdNE1CZCJ267cfWseVtXT4PrBbLjBOjDPUR5dNRjSs83AKCRMSdmrglmqb1KVHIke7ei100705w4tDU"
-);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { resolve } = require("path");
 
 router.get("/", (req, res) => {
@@ -10,19 +10,36 @@ router.get("/", (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: "T-shirt",
-          },
-          unit_amount: 2000,
+  const line_items = req.body.products.map((product) => {
+    return {
+      price_data: {
+        currency: "eur",
+        product_data: {
+          name: product.title,
+          images: [product.img],
+          metadata:{
+            id: product.id,
+          }
         },
-        quantity: 1,
+        unit_amount: product.price * 100,
       },
-    ],
+      quantity: product.quantity,
+    };
+  });
+  const session = await stripe.checkout.sessions.create({
+    line_items,
+    // line_items: [
+    //   {
+    //     price_data: {
+    //       currency: "usd",
+    //       product_data: {
+    //         name: "T-shirt",
+    //       },
+    //       unit_amount: 2000,
+    //     },
+    //     quantity: 1,
+    //   },
+    // ],
     mode: "payment",
     success_url: `${process.env.CLIENT_URL}/success`,
     cancel_url: `${process.env.CLIENT_URL}/cart`,
