@@ -3,32 +3,39 @@ import CheckoutButton from "../components/CheckoutButton";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { clearCart, increaseQuantity, decreaseQuantity, removeProduct } from "../redux/cartRedux";
+import Navbar from "../components/Navbar";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  const updateProductCount = (event, productId, delta) => {
-    console.log(`Product ID : ${productId}, + - = ${delta}`);
-    // event.preventDefault()
-    // dispatch(addProduct({ ...product, quantity, color, size }));
-    dispatch(updateProductCount(productId, delta));
+  const handleRemoveProduct = (product) => {
+    dispatch(removeProduct(product));
   };
 
-  //Redux
-  // -> dispatch
-  // -> store <-> state difference
-  // -> update store will page rendering ? (eg. update cart -> update rerender?)
-  // -> Why use Redux and when to use it ?
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
 
-  //React Core
-  // -> What is useEffect, what is the common usecase?
-  // -> It case infi
+  const handleIncrease = (product) => {
+    dispatch(increaseQuantity(product));
+  };
+
+  const handleDecrease = (product) => {
+    dispatch(decreaseQuantity(product));
+  };
 
   return (
     <div className="bg-white">
+      <Navbar />
       <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
+        <div className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
+          <button type="button" onClick={() => handleClearCart()}>
+            Clear cart
+          </button>
+        </div>
         <div className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
           <section aria-labelledby="cart-heading" className="lg:col-span-7">
             <h2 id="cart-heading" className="sr-only">
@@ -64,25 +71,15 @@ const Cart = () => {
 
                       <div className="mt-4 sm:mt-0 sm:pr-9">
                         <label className="sr-only">{product.title}</label>
-                        {/* <select
-                          id={product._id}
-                          name={product.quantity}
-                          className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        >
-                          <option selected="selected">{product.quantity}</option>
-                        </select> */}
-                        {/* <div className="flex"> */}
-                        <button
-                          onClick={(e) => {
-                            updateProductCount(e, product._id, -1);
-                          }}
-                        >
-                          -
-                        </button>
+                        <button onClick={() => handleDecrease(product)}>-</button>
                         <h4>{product.quantity}</h4>
-                        <button type="button">+</button>
+                        <button onClick={() => handleIncrease(product)}>+</button>
                         <div className="absolute top-0 right-0">
-                          <button type="button" className="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveProduct(product)}
+                            className="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500"
+                          >
                             <span className="sr-only">Remove</span>
                             <XCircleIcon className="h-5 w-5" aria-hidden="true" />
                           </button>
