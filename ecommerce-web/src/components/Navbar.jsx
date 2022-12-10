@@ -1,9 +1,19 @@
 import { MagnifyingGlassIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/userRedux";
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
+  const isLogin = user.currentUser;
+
   return (
     <div className="my-2 mx-16">
       <ul className="flex justify-between items-center">
@@ -24,12 +34,16 @@ const Navbar = () => {
         </li>
 
         {/* middle */}
-        <li className="text-center text-4xl"><Link to="/">SHOP.</Link></li>
+        <li className="text-center text-4xl">
+          <Link to="/">SHOP.</Link>
+        </li>
 
         {/* right */}
         <li className="hidden lg:flex space-x-8">
-          <div><Link to="/register">REGISTER</Link></div>
-          <div><Link to="/login">SIGN IN</Link></div>
+          <div>{isLogin ? <Link to="/register">WISH LIST</Link> : <Link to="/register">REGISTER</Link>}</div>
+          <div>
+            <div>{isLogin ? <button onClick={handleLogout}> SIGN OUT</button> : <Link to="/login">SIGN IN</Link>}</div>
+          </div>
           <div className="relative">
             <Link to="/cart">
               <ShoppingCartIcon className="h-6 w-6" />
