@@ -16,13 +16,12 @@ const CheckoutButton = ({ products }) => {
         }
       })
       .catch((err) => console.log(err.message));
-    console.log(products);
 
     // create a order to database
     publicRequest
       .post(
         "/order",
-        { userID: user.others._id, products: [{ products }], amount: cart.total },
+        { userID: user.others._id, products: products, amount: cart.total },
         {
           headers: {
             token: "Bearer " + user.accessToken,
@@ -34,7 +33,7 @@ const CheckoutButton = ({ products }) => {
           window.location.href = res.data.url;
         }
       })
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => console.log(err.response.data, user.others._id));
   };
 
   return (
