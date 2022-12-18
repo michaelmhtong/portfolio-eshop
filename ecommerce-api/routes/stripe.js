@@ -3,6 +3,7 @@ dotenv.config();
 const router = require("express").Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { resolve } = require("path");
+const { orderId } = require("./order");
 
 router.get("/", (req, res) => {
   const path = resolve(process.env.STATIC_DIR + "/src/pages/payment.jsx");
@@ -10,6 +11,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
+  const orderId = global.orderId; // Access the global variable
   const line_items = req.body.products.map((product) => {
     return {
       price_data: {
@@ -17,9 +19,9 @@ router.post("/create-checkout-session", async (req, res) => {
         product_data: {
           name: product.title,
           images: [product.img],
-          metadata:{
+          metadata: {
             id: product.id,
-          }
+          },
         },
         unit_amount: product.price * 100,
       },
@@ -28,23 +30,10 @@ router.post("/create-checkout-session", async (req, res) => {
   });
   const session = await stripe.checkout.sessions.create({
     line_items,
-    // line_items: [
-    //   {
-    //     price_data: {
-    //       currency: "usd",
-    //       product_data: {
-    //         name: "T-shirt",
-    //       },
-    //       unit_amount: 2000,
-    //     },
-    //     quantity: 1,
-    //   },
-    // ],
     mode: "payment",
-    success_url: `${process.env.CLIENT_URL}/success`,
+    success_url: `${process.env.CLIENT_URL}/order/${orderId}`,
     cancel_url: `${process.env.CLIENT_URL}/cart`,
   });
-
   res.send({ url: session.url });
 });
 

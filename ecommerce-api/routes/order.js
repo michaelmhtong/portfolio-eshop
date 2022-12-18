@@ -2,15 +2,18 @@ const Order = require("../models/Order");
 const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
 const router = require("express").Router();
 
-//CREATE
+let orderId = null;
 
+// CREATE
 router.post("/", verifyToken, async (req, res) => {
   const newOrder = new Order(req.body);
   try {
     const savedOrder = await newOrder.save();
+    orderId = savedOrder._id;
+    global.orderId = orderId; // Set the global variable
     res.status(200).json(savedOrder);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err.message);
   }
 });
 
@@ -21,7 +24,7 @@ router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
     if (order.userID === req.user.id) {
       res.status(200).json(order);
     } else {
-      res.status(403)
+      res.status(403);
     }
   } catch (err) {
     res.status(500).json(err);
@@ -105,4 +108,4 @@ router.get("/income", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = { router, orderId };
