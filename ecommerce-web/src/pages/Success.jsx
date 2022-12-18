@@ -4,28 +4,36 @@ import { publicRequest } from "../requestMethods";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+// problem: need time to fetch data, order is empty
+// useEffect useState
+
 const Success = () => {
   const location = useLocation();
   const [order, setOrder] = useState({});
+  const [loading, setLoading] = useState(true);
   const id = location.pathname.split("/")[2];
   const user = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const getOrder = async () => {
       try {
-        const res = await publicRequest.get("order/find/" + id, {
+        const res = await publicRequest.get("/order/find/" + id, {
           headers: {
             token: "Bearer " + user.accessToken,
           },
         });
         setOrder(res.data);
-        console.log(res.data);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     getOrder();
   }, [id]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="relative lg:min-h-full">

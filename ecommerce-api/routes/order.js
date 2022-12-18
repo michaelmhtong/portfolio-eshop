@@ -17,7 +17,22 @@ router.post("/", verifyToken, async (req, res) => {
 // GET ORDER
 router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const orders = await Order.findOne({ _id: req.params.id });
+    const order = await Order.findOne({ _id: req.params.id }); // req.params.id = :id
+    if (order.userID === req.user.id) {
+      res.status(200).json(order);
+    } else {
+      res.status(403)
+    }
+  } catch (err) {
+    res.status(500).json(err);
+    console.log(err);
+  }
+});
+
+// GET USER ORDERS
+router.get("/user/:userId", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const orders = await Order.find({ userID: req.params.userId });
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);
@@ -49,17 +64,6 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-// GET USER ORDERS
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    const orders = await Order.find({ userId: req.params.userId });
-    res.status(200).json(orders);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 
 // GET ALL
 
