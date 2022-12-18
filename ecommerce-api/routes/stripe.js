@@ -3,7 +3,6 @@ dotenv.config();
 const router = require("express").Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { resolve } = require("path");
-const { orderId } = require("./order");
 
 router.get("/", (req, res) => {
   const path = resolve(process.env.STATIC_DIR + "/src/pages/payment.jsx");

@@ -1,22 +1,12 @@
 import React from "react";
 import { publicRequest } from "../requestMethods";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const CheckoutButton = ({ products }) => {
   const user = useSelector((state) => state.user.currentUser);
   const cart = useSelector((state) => state.cart);
 
   const handleCheckOut = () => {
-    // create a chekcout session in stripe
-    publicRequest
-      .post("/payment/create-checkout-session", { products })
-      .then((res) => {
-        if (res.data.url) {
-          window.location.href = res.data.url;
-        }
-      })
-      .catch((err) => console.log(err.message));
-
     // create a order to database
     publicRequest
       .post(
@@ -29,11 +19,17 @@ const CheckoutButton = ({ products }) => {
         }
       )
       .then((res) => {
-        if (res.data.url) {
-          window.location.href = res.data.url;
-        }
+        // create a chekcout session in stripe
+        publicRequest
+          .post("/payment/create-checkout-session", { products })
+          .then((res) => {
+            if (res.data.url) {
+              window.location.href = res.data.url;
+            }
+          })
+          .catch((err) => console.log(err.message));
       })
-      .catch((err) => console.log(err.response.data, user.others._id));
+      .catch((err) => console.log(err.response));
   };
 
   return (

@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import Product from "./pages/Product";
+import Member from "./pages/Member";
 import { useSelector } from "react-redux";
 
 const App = () => {
@@ -20,7 +21,8 @@ const App = () => {
         <Route path="/login" element={user ? <Navigate replace to="/" /> : <Login />} />
         <Route path="/register" element={user ? <Navigate replace to="/" /> : <Register />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/success" element={<Success />} />
+        <Route path="/order/:id" element={<Success />} />
+        <Route path="/member" element={<Member />} />
       </Routes>
     </Router>
   );
