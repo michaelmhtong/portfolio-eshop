@@ -17,5 +17,6 @@ export const register = async (dispatch, user) => {
     dispatch(loginSuccess(res.data));
   } catch (err) {
     console.log(err.response.data);
+    return "This email has been registered, please try another one";
   }
 };
