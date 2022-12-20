@@ -16,9 +16,15 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const handleRegister = (e) => {
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    register(dispatch, { email, password, firstName, lastName });
+    setIsLoading(true);
+    const result = await register(dispatch, { email, password, firstName, lastName });
+    setMessage(result);
+    setIsLoading(false);
   };
 
   // check the validation of email
@@ -70,7 +76,7 @@ const Register = () => {
           aria-invalid={validEmail ? "false" : "true"}
           onChange={(e) => setEmail(e.target.value)}
         />
-        {email && !validEmail ? <p id="emailnote">Please enter a valid email</p> : null}
+        {email && !validEmail ? <p id="emailnote">Please enter a valid email address</p> : null}
 
         <input
           id="password"
@@ -83,11 +89,23 @@ const Register = () => {
           aria-invalid={validPassword ? "false" : "true"}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {password && !validPassword ? <p id="pwdnote">123</p> : null}
+        {password && !validPassword ? (
+          <div>
+            <div>Your password does not match our requirements</div>
+            <ul id="pwdnote">
+              <li>Minimum 8 characters</li>
+              <li>1 uppercase letter</li>
+              <li>1 lowercase letter</li>
+              <li>1 number</li>
+              <li>1 special character</li>
+            </ul>
+          </div>
+        ) : null}
 
         <h3>By creating your account, you agree to our Terms and Conditions.</h3>
-        <button className="btn" disabled={!validEmail || !validPassword}>
-          CREATE ACCOUNT
+        {message && <div>{message}</div>}
+        <button className="btn" disabled={!validEmail || !validPassword || isLoading}>
+          {isLoading ? <div>PROCESSING</div> : <div>CREATE ACCOUNT</div>}
         </button>
       </form>
     </div>
