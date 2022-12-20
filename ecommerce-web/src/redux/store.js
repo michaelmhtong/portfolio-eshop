@@ -12,7 +12,24 @@ const persistConfig = {
 
 const rootReducer = combineReducers({ user: userReducer, cart: cartReducer });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const stateReconciler = (inboundState, originalState) => {
+  return {
+    ...inboundState,
+    user: {
+      ...inboundState.user,
+      error: false,
+    },
+  };
+};
+
+const persistedReducer = persistReducer(
+  {
+    key: "root",
+    storage,
+    stateReconciler,
+  },
+  rootReducer
+);
 
 export const store = configureStore({
   reducer: persistedReducer,
