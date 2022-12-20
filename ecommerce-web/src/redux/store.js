@@ -17,6 +17,7 @@ const stateReconciler = (inboundState, originalState) => {
     ...inboundState,
     user: {
       ...inboundState.user,
+      isFetching: false,
       error: false,
     },
   };
