@@ -21,16 +21,19 @@ router.post("/register", async (req, res) => {
 });
 
 //Login
-
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    !user && res.status(401).json("Wrong credentials - user/useremail not found");
+    if (!user) {
+      return res.status(401).json("Wrong credentials - email not found");
+    }
 
     const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-    originalPassword !== req.body.password && res.status(401).json("Wrong credentials - invalid password");
+    if (originalPassword !== req.body.password) {
+      return res.status(401).json("Wrong credentials - invalid password");
+    }
 
     const accessToken = jwt.sign(
       {
