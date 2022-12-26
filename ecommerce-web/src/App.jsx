@@ -9,6 +9,8 @@ import Success from "./pages/Success";
 import Product from "./pages/Product";
 import Member from "./pages/Member";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -24,6 +26,7 @@ const App = () => {
         <Route path="/order/:id" element={<Success />} />
         <Route path="/member" element={<Member />} />
       </Routes>
+      <ToastContainer position="bottom-left" autoClose={3000} />
     </Router>
   );
 };

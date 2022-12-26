@@ -19,6 +19,7 @@
     "react-router": "^6.4.3",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6",
@@ -49,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.19",
