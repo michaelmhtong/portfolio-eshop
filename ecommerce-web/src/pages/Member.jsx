@@ -1,8 +1,7 @@
 import Navbar from "../components/Navbar";
-import News from "../components/News";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // missing data placed, product img
@@ -32,7 +31,6 @@ const Member = () => {
   console.log(orders);
   return (
     <div className="bg-white">
-      <News />
       <Navbar />
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:pb-24 lg:px-8">
         <div className="max-w-xl">
@@ -57,7 +55,7 @@ const Member = () => {
                     <div className="flex justify-between sm:block">
                       <dt className="font-medium text-gray-900">Date placed</dt>
                       <dd className="sm:mt-1">
-                        <time dateTime={order.datetime}>{order.date}</time>
+                        <time dateTime={order.createdAt}>{new Date(order.createdAt).toLocaleDateString()}</time>
                       </dd>
                     </div>
                     <div className="flex justify-between pt-6 sm:block sm:pt-0">
@@ -66,7 +64,7 @@ const Member = () => {
                     </div>
                     <div className="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
                       <dt>Total amount</dt>
-                      <dd className="sm:mt-1">{order.amount}</dd>
+                      <dd className="sm:mt-1">€ {order.amount}</dd>
                     </div>
                   </dl>
                   <a
@@ -108,25 +106,27 @@ const Member = () => {
                         <td className="py-6 pr-8">
                           <div className="flex items-center">
                             <img
-                              src={product.imageSrc}
-                              alt={product.imageAlt}
+                              src={product.img}
+                              alt={product.title}
                               className="w-16 h-16 object-center object-cover rounded mr-6"
                             />
                             <div>
-                              <div className="font-medium text-gray-900">{product._id}</div>
+                              <div className="font-medium text-gray-900">
+                                {product.title} ({product.color})
+                              </div>
                               <div className="mt-1 sm:hidden">{product.price}</div>
                             </div>
                           </div>
                         </td>
                         <td className="hidden py-6 pr-8 sm:table-cell">{product.size}</td>
-                        <td className="hidden py-6 pr-8 sm:table-cell">{product.price}</td>
+                        <td className="hidden py-6 pr-8 sm:table-cell">€ {product.price}</td>
                         <td className="hidden py-6 pr-8 sm:table-cell">{product.quantity}</td>
-                        <td className="hidden py-6 pr-8 sm:table-cell">{product.price * product.quantity}</td>
+                        <td className="hidden py-6 pr-8 sm:table-cell">€ {product.price * product.quantity}</td>
                         <td className="py-6 font-medium text-right whitespace-nowrap">
-                          <a href={product.href} className="text-indigo-600">
+                          <Link to={`/product/${product._id}`} className="text-indigo-600">
                             View<span className="hidden lg:inline"> Product</span>
                             <span className="sr-only">, {product.name}</span>
-                          </a>
+                          </Link>
                         </td>
                       </tr>
                     ))}
