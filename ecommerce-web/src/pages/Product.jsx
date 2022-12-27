@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import News from "../components/News";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
@@ -9,7 +8,7 @@ import { useDispatch } from "react-redux";
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
@@ -20,6 +19,8 @@ const Product = () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
         setProduct(res.data);
+        setColor(res.data.color);
+        setSize(res.data.size[0]);
       } catch {}
     };
     getProduct();
@@ -29,13 +30,16 @@ const Product = () => {
     dispatch(addProduct({ ...product, quantity, color, size }));
   };
 
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      <News />
       <Navbar />
       <div className="grid grid-cols-2 gap-4 mx-60 my-10">
         <div>
-          <img className="" src={product.img}></img>
+          <img className="product-image" src={product.img} alt={product.title}></img>
         </div>
         <div>
           <h1>{product.title}</h1>
@@ -44,11 +48,7 @@ const Product = () => {
           <div className="flex items-center">
             <div className="flex items-center">
               <h3>color</h3>
-              {product.color?.map((color) => (
-                <button key={color} onClick={() => setColor(color)}>
-                  {color}
-                </button>
-              ))}
+                  {product.color}
             </div>
             <div className="flex items-center">
               <h3>Size</h3>
