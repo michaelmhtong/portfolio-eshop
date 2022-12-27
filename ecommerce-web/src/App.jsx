@@ -18,7 +18,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/products/:category1/:category2?/:category3?" element={<ProductList />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/login" element={user ? <Navigate replace to="/" /> : <Login />} />
         <Route path="/register" element={user ? <Navigate replace to="/" /> : <Register />} />

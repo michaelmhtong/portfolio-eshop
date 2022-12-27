@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import News from "../components/News";
-import Products from "../components/ProductsFilter";
+import ProductsFilter from "../components/ProductsFilter";
 import { useLocation } from "react-router";
 import { publicRequest } from "../requestMethods";
 
 const ProductList = () => {
   const location = useLocation();
-  const cat = location.pathname.split("/")[2];
+  const cat = location.pathname.split("/").slice(2);
   const [products, setProducts] = useState([]);
-  
+
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -18,8 +18,8 @@ const ProductList = () => {
       } catch (err) {}
     };
     getProducts();
-  }, [cat]);
- 
+  }, []);
+
   return (
     <div>
       <div>
@@ -28,7 +28,7 @@ const ProductList = () => {
       </div>
       <div>
         <div>{cat}</div>
-        <Products products={products} cat={cat} />
+        <ProductsFilter products={products} cat={cat} />
       </div>
     </div>
   );

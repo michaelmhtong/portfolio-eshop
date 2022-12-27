@@ -40,14 +40,14 @@ const Products = ({ cat, products }) => {
   useEffect(() => {
     setFilteredProducts(
       products
-        .filter((item) => item.categories.includes(cat))
+        .filter((item) => cat.every((category) => item.categories.includes(category)))
         .filter((item) => Object.entries(filters).every(([key, value]) => item[key].includes(value)))
     );
   }, [products, cat, filters]);
 
   useEffect(() => {
-    setFilteredCat(products.filter((item) => item.categories.includes(cat)));
-  }, [products]);
+    setFilteredCat(products.filter((item) => cat.every((category) => item.categories.includes(category))));
+  }, [products, cat]);
 
   const handleReset = () => {
     colorSelectRef.current.value = "";
@@ -81,7 +81,7 @@ const Products = ({ cat, products }) => {
         <button onClick={handleReset}>Reset</button>
       </div>
       <div className="grid grid-cols-4 gap-4">
-        {cat === "all"
+        {cat.includes("all")
           ? products.map((item) => <ProductCard item={item} key={item.id} />)
           : filteredProducts.map((item) => <ProductCard item={item} key={item.id} />)}
       </div>
