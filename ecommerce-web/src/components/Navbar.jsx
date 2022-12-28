@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userRedux";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
-import { Bars3Icon, ShoppingBagIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, UserIcon, ShoppingBagIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import Logo from "../image/logo.svg";
 
 const navigation = {
   categories: [
@@ -15,14 +16,13 @@ const navigation = {
         {
           name: "New Arrivals",
           href: "/products/women",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
-          imageAlt: "Models sitting back to back, wearing Basic Tee in black and bone.",
+          imageSrc:
+            "https://assets.hermes.com/is/image/hermesedito/P_43_SELLIER_FW22__LOOKS_COVERVIDEO?fit=wrap%2C0&wid=730",
         },
         {
           name: "Bags",
           href: "/products/women/accessories/bag",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
-          imageAlt: "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
+          imageSrc: "https://static.purseblog.com/images/2022/10/Hermes-SS23-detail-look-16-a-new-Gao-via-Vogue.jpg",
         },
       ],
       sections: [
@@ -44,7 +44,6 @@ const navigation = {
             { name: "Dresses and skirts", href: "/products/women/clothing/dress" },
             { name: "Tops and shirts", href: "/products/women/clothing/top" },
             { name: "Pants and shorts", href: "/products/women/clothing/pants" },
-            { name: "Beachwear", href: "/products/women/clothing/beachwear" },
           ],
         },
         {
@@ -55,8 +54,6 @@ const navigation = {
             { name: "Scarve", href: "/products/women/accessories/scarve" },
             { name: "Shoes", href: "/products/women/accessories/shoes" },
             { name: "Bags", href: "/products/women/accessories/bag" },
-            { name: "Belts", href: "/products/women/accessories/belt" },
-            { name: "Hats", href: "/products/women/accessories/hat" },
           ],
         },
       ],
@@ -68,15 +65,12 @@ const navigation = {
         {
           name: "New Arrivals",
           href: "/products/men",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
-          imageAlt: "Drawstring top with elastic loop closure and textured interior padding.",
+          imageSrc: "https://assets.hermes.com/is/image/hermesedito/P_916_SILK_MEN_AH22_4?fit=wrap%2C0&wid=730",
         },
         {
-          name: "Artwork Tees",
-          href: "/products/men",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
-          imageAlt:
-            "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
+          name: "Shoes",
+          href: "/products/men/accessories/shoes",
+          imageSrc: "https://assets.hermes.com/is/image/hermesedito/P_916_MSHOES_FW22_4?fit=wrap%2C0&wid=730",
         },
       ],
       sections: [
@@ -97,7 +91,6 @@ const navigation = {
             { name: "Coats and jackets", href: "/products/men/clothing/coat" },
             { name: "Tops and shirts", href: "/products/men/clothing/top" },
             { name: "Pants and shorts", href: "/products/men/clothing/pants" },
-            { name: "Beachwear", href: "/products/men/clothing/beachwear" },
           ],
         },
         {
@@ -108,8 +101,6 @@ const navigation = {
             { name: "Scarve", href: "/products/men/accessories/scarve" },
             { name: "Shoes", href: "/products/men/accessories/shoes" },
             { name: "Bags", href: "/products/men/accessories/bag" },
-            { name: "Belts", href: "/products/men/accessories/belt" },
-            { name: "Hats", href: "/products/men/accessories/hat" },
           ],
         },
       ],
@@ -121,15 +112,12 @@ const navigation = {
         {
           name: "New Arrivals",
           href: "/products/home",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
-          imageAlt: "Drawstring top with elastic loop closure and textured interior padding.",
+          imageSrc: "https://assets.hermes.com/is/image/hermesedito/P_11_CH_plaid?fit=wrap%2C0&wid=360",
         },
         {
-          name: "Artwork Tees",
-          href: "/products/home",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
-          imageAlt:
-            "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
+          name: "Tableware",
+          href: "/products/home/tableware",
+          imageSrc: "https://assets.hermes.com/is/image/hermesedito/P_11_CH_objet?fit=wrap%2C0&wid=360",
         },
       ],
       sections: [
@@ -148,10 +136,8 @@ const navigation = {
           items: [
             { name: "All Home", href: "/products/home" },
             { name: "Blandkets and Pillows", href: "/products/home/blandket" },
-            { name: "Decorative objects", href: "/products/home/decorate" },
             { name: "Tableware", href: "/products/home/tableware" },
             { name: "Furnitrue and Lighting", href: "/products/home/furnitrue" },
-            { name: "Office and Writing", href: "/products/home/office" },
           ],
         },
       ],
@@ -233,6 +219,7 @@ const Navbar = () => {
                         ))}
                       </Tab.List>
                     </div>
+
                     <Tab.Panels as={Fragment}>
                       {navigation.categories.map((category) => (
                         <Tab.Panel key={category.name} className="space-y-10 px-4 pt-10 pb-8">
@@ -240,7 +227,7 @@ const Navbar = () => {
                             {category.featured.map((item) => (
                               <div key={item.name} className="group relative text-sm">
                                 <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                  <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
+                                  <img src={item.imageSrc} alt={item.name} className="object-cover object-center" />
                                 </div>
                                 <Link to={item.href} className="mt-6 block font-medium text-gray-900">
                                   <span className="absolute inset-0 z-10" aria-hidden="true" />
@@ -279,19 +266,6 @@ const Navbar = () => {
                       ))}
                     </Tab.Panels>
                   </Tab.Group>
-
-                  <div className="space-y-6 border-t border-gray-200 py-6 px-4">
-                    <div className="flow-root">
-                      <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                        Sign in
-                      </a>
-                    </div>
-                    <div className="flow-root">
-                      <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                        Create account
-                      </a>
-                    </div>
-                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -299,8 +273,8 @@ const Navbar = () => {
         </Transition.Root>
 
         <header className="relative bg-white z-10">
-          <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-            Get free delivery on orders over €100
+          <p className="flex h-10 items-center justify-center bg-[#f6f1eb] px-4 text-sm font-medium text-grey-900 sm:px-6 lg:px-8">
+            Get free delivery on orders over € 100
           </p>
 
           <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -319,11 +293,8 @@ const Navbar = () => {
                 <div className="ml-4 flex lg:ml-0">
                   <Link to="/">
                     <span className="sr-only">Company</span>
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                      alt="logo"
-                    />
+                    <img className="h-8 w-auto" src={Logo} alt="logo" />
+                    {/* <img src="../image/logo.svg" alt="logo" /> */}
                   </Link>
                 </div>
 
@@ -369,7 +340,7 @@ const Navbar = () => {
                                             <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                               <img
                                                 src={item.imageSrc}
-                                                alt={item.imageAlt}
+                                                alt={item.name}
                                                 className="object-cover object-center"
                                               />
                                             </div>
@@ -418,20 +389,28 @@ const Navbar = () => {
                 </Popover.Group>
 
                 <div className="ml-auto flex items-center">
-                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <div className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                      {isLogin ? <Link to="/member">My order</Link> : <Link to="/register">Create account</Link>}
-                    </div>
-                    <div className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                      {isLogin ? <button onClick={handleLogout}> Sign out</button> : <Link to="/login">Sign in</Link>}
-                    </div>
-                    {/* <span className="h-6 w-px bg-gray-200" aria-hidden="true" /> */}
+                  <div className="ml-4 flow-root lg:ml-6">
+                    {isLogin ? (
+                      <Link to="/member">
+                        <UserIcon
+                          className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                          aria-hidden="true"
+                        />
+                      </Link>
+                    ) : (
+                      <Link to="/signin">
+                        <UserIcon
+                          className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                          aria-hidden="true"
+                        />
+                      </Link>
+                    )}
                   </div>
 
                   {/* Cart */}
                   <div className="ml-4 flow-root lg:ml-6">
                     <div className="group -m-2 flex items-center p-2">
-                      <Link to="/cart">
+                      <Link to="/cart" className="flex items-center">
                         <ShoppingBagIcon
                           className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                           aria-hidden="true"
@@ -439,7 +418,6 @@ const Navbar = () => {
                         <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                           {quantity}
                         </span>
-                        <span className="sr-only">items in cart, view bag</span>
                       </Link>
                     </div>
                   </div>

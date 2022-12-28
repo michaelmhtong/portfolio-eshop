@@ -1,16 +1,19 @@
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
-import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-// missing data placed, product img
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/userRedux";
 
 const Member = () => {
-  const location = useLocation();
   const [orders, setOrders] = useState([]);
   const user = useSelector((state) => state.user.currentUser);
   const userID = user.others._id;
+
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   useEffect(() => {
     const getOrder = async () => {
@@ -28,16 +31,27 @@ const Member = () => {
     getOrder();
   }, [userID]);
 
-  console.log(orders);
   return (
     <div className="bg-white">
       <Navbar />
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:pb-24 lg:px-8">
-        <div className="max-w-xl">
-          <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Order history</h1>
-          <p className="mt-2 text-sm text-gray-500">
-            Check the status of recent orders, manage returns, and download invoices.
-          </p>
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:pb-24 lg:px-8">
+        <div className="max-w-xl"></div>
+
+        <div className="flex items-center justify-between mt-4">
+          <div>
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Order history</h1>
+            <p className="mt-2 text-sm text-gray-500">
+              Check the status of recent orders, manage returns, and download invoices.
+            </p>
+          </div>
+          <Link to="/">
+            <button
+              onClick={handleLogout}
+              class="px-4 py-2 bg-gray-600 hover:bg-gray-900 text-white text-sm font-medium rounded-md"
+            >
+              Logout
+            </button>
+          </Link>
         </div>
 
         <div className="mt-16">
@@ -123,7 +137,7 @@ const Member = () => {
                         <td className="hidden py-6 pr-8 sm:table-cell">{product.quantity}</td>
                         <td className="hidden py-6 pr-8 sm:table-cell">€ {product.price * product.quantity}</td>
                         <td className="py-6 font-medium text-right whitespace-nowrap">
-                          <Link to={`/product/${product._id}`} className="text-indigo-600">
+                          <Link to={`/product/${product._id}`} className="text-gray-600">
                             View<span className="hidden lg:inline"> Product</span>
                             <span className="sr-only">, {product.name}</span>
                           </Link>

@@ -1,11 +1,9 @@
-import React from "react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-// problem: need time to fetch data, order is empty
-// useEffect useState
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../redux/cartRedux";
 
 const Success = () => {
   const location = useLocation();
@@ -13,6 +11,7 @@ const Success = () => {
   const [loading, setLoading] = useState(true);
   const id = location.pathname.split("/")[2];
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getOrder = async () => {
@@ -24,6 +23,7 @@ const Success = () => {
         });
         setOrder(res.data);
         setLoading(false);
+        dispatch(clearCart()); // delete cart items
       } catch (err) {
         console.log(err);
       }
@@ -39,17 +39,17 @@ const Success = () => {
     <main className="relative lg:min-h-full">
       <div className="h-80 overflow-hidden lg:absolute lg:w-1/2 lg:h-full lg:pr-4 xl:pr-12">
         <img
-          src="https://tailwindui.com/img/ecommerce-images/confirmation-page-06-hero.jpg"
+          src="https://assets.hermes.com/is/image/hermesedito/CORPO_Fitilieu_P_169?fit=wrap%2C0&wid=1920"
           alt="TODO"
           className="h-full w-full object-center object-cover"
         />
       </div>
 
       <div>
-        <div className="max-w-2xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:py-32 lg:grid lg:grid-cols-2 lg:gap-x-8 xl:gap-x-24">
+        <div className="max-w-2xl mx-auto py-16 px-4 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8 lg:py-24 lg:grid lg:grid-cols-2 lg:gap-x-8 xl:gap-x-24">
           <div className="lg:col-start-2">
             <h1 className="text-sm font-medium text-indigo-600">Payment successful</h1>
-            <p className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Thanks for ordering</p>
+            <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Thanks for ordering</p>
             <p className="mt-2 text-base text-gray-500">Hang tight and ship it very soon!</p>
 
             <dl className="mt-16 text-sm font-medium">
@@ -64,18 +64,19 @@ const Success = () => {
               {order.products.map((product) => (
                 <li key={product.id} className="flex py-6 space-x-6">
                   <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
+                    src={product.img}
+                    alt={product.title}
                     className="flex-none w-24 h-24 bg-gray-100 rounded-md object-center object-cover"
                   />
                   <div className="flex-auto space-y-1">
                     <h3 className="text-gray-900">
-                      <a href={product.href}>{product.name}</a>
+                      <a href={product.href}>{product.title}</a>
                     </h3>
-                    <p>{product.color}</p>
-                    <p>{product.size}</p>
+                    <p>
+                      {product.color} | {product.size}
+                    </p>
                   </div>
-                  <p className="flex-none font-medium text-gray-900">{product.price}</p>
+                  <p className="flex-none font-medium text-gray-900">€ {product.price}</p>
                 </li>
               ))}
             </ul>
@@ -83,17 +84,17 @@ const Success = () => {
             <dl className="text-sm font-medium text-gray-500 space-y-6 border-t border-gray-200 pt-6">
               <div className="flex justify-between">
                 <dt>Subtotal</dt>
-                <dd className="text-gray-900">$72.00</dd>
+                <dd className="text-gray-900">€ {order.amount}</dd>
               </div>
 
               <div className="flex justify-between">
                 <dt>Shipping</dt>
-                <dd className="text-gray-900">$8.00</dd>
+                <dd className="text-gray-900">€ 0.00</dd>
               </div>
 
               <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
                 <dt className="text-base">Total</dt>
-                <dd className="text-base">${order.amount}</dd>
+                <dd className="text-base">€ {order.amount}</dd>
               </div>
             </dl>
 
@@ -138,7 +139,8 @@ const Success = () => {
 
             <div className="mt-16 border-t border-gray-200 py-6 text-right">
               <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                Continue Shopping<span aria-hidden="true"> &rarr;</span>
+                <Link to="/">Continue Shopping</Link>
+                <span aria-hidden="true"> &rarr;</span>
               </a>
             </div>
           </div>

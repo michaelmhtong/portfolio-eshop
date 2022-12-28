@@ -1,8 +1,7 @@
-import { CheckIcon, ClockIcon, QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, QuestionMarkCircleIcon, XCircleIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
 import CheckoutButton from "../components/CheckoutButton";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { clearCart, increaseQuantity, decreaseQuantity, removeProduct } from "../redux/cartRedux";
 import Navbar from "../components/Navbar";
 
@@ -29,13 +28,17 @@ const Cart = () => {
   return (
     <div className="bg-white">
       <Navbar />
-      <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
-        <div className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
-          <button type="button" onClick={() => handleClearCart()}>
+      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:py-8 lg:px-8">
+        <div className="flex items-center justify-between mt-4">
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Shopping Cart</h1>
+          <button
+            onClick={handleClearCart}
+            class="px-4 py-2 bg-gray-600 hover:bg-gray-900 text-white text-sm font-medium rounded-md"
+          >
             Clear cart
           </button>
         </div>
+
         <div className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
           <section aria-labelledby="cart-heading" className="lg:col-span-7">
             <h2 id="cart-heading" className="sr-only">
@@ -44,7 +47,7 @@ const Cart = () => {
 
             <ul role="list" className="border-t border-b border-gray-200 divide-y divide-gray-200">
               {cart.products.map((product) => (
-                <li key={product._id} className="flex py-6 sm:py-10">
+                <li key={`${product._id}-${product.color}-${product.size}`} className="flex py-6 sm:py-10">
                   <div className="flex-shrink-0">
                     <img
                       src={product.img}
@@ -56,7 +59,7 @@ const Cart = () => {
                     <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                       <div>
                         <div className="flex justify-between">
-                          <h3 className="text-sm">
+                          <h3 className="text-sm font-semibold">
                             <Link to={`/product/${product._id}`}>{product.title}</Link>
                           </h3>
                         </div>
@@ -66,14 +69,19 @@ const Cart = () => {
                             <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">{product.size}</p>
                           ) : null}
                         </div>
-                        <p className="mt-1 text-sm font-medium text-gray-900">€ {product.price * product.quantity}</p>
+                        <p className="mt-2 text-sm font-medium text-gray-900">€ {product.price * product.quantity}</p>
                       </div>
 
-                      <div className="mt-4 sm:mt-0 sm:pr-9">
+                      <div className="mt-4 sm:mt-0 sm:pr-9 flex items-center">
                         <label className="sr-only">{product.title}</label>
-                        <button onClick={() => handleDecrease(product)}>-</button>
-                        <h4>{product.quantity}</h4>
-                        <button onClick={() => handleIncrease(product)}>+</button>
+                        <button onClick={() => handleDecrease(product)}>
+                          <MinusIcon className="h-3 w-3" />
+                        </button>
+                        <h4 className="px-3">{product.quantity}</h4>
+                        <button onClick={() => handleIncrease(product)}>
+                          <PlusIcon className="h-3 w-3" />
+                        </button>
+
                         <div className="absolute top-0 right-0">
                           <button
                             type="button"
@@ -88,13 +96,8 @@ const Cart = () => {
                     </div>
 
                     <p className="mt-4 flex text-sm text-gray-700 space-x-2">
-                      {product.inStock ? (
-                        <CheckIcon className="flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
-                      ) : (
-                        <ClockIcon className="flex-shrink-0 h-5 w-5 text-gray-300" aria-hidden="true" />
-                      )}
-
-                      <span>{product.inStock ? "In stock" : `Ships in ${product.leadTime}`}</span>
+                      <CheckIcon className="flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
+                      <span>Ships in 1 week</span>
                     </p>
                   </div>
                 </li>
@@ -124,7 +127,7 @@ const Cart = () => {
                     <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true" />
                   </a>
                 </dt>
-                <dd className="text-sm font-medium text-gray-900">€5.00</dd>
+                <dd className="text-sm font-medium text-gray-900">€ 20.00</dd>
               </div>
               <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                 <dt className="flex text-sm text-gray-600">
@@ -134,7 +137,7 @@ const Cart = () => {
                     <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true" />
                   </a>
                 </dt>
-                <dd className="text-sm font-medium text-gray-900">-€5.00</dd>
+                <dd className="text-sm font-medium text-gray-900">-€ 20.00</dd>
               </div>
               <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                 <dt className="text-base font-medium text-gray-900">Order total</dt>

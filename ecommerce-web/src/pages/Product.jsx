@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { publicRequest } from "../requestMethods";
@@ -44,7 +44,7 @@ const Product = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-2xl mx-auto py-6 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
+      <div className="max-w-2xl mx-auto py-6 px-6 sm:py-6 sm:px-6 lg:max-w-7xl lg:py-16 lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
         {/* Product image */}
         <div className="mt-10 lg:col-span-1 lg:mt-0 lg:self-center">
           <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden">
@@ -59,9 +59,12 @@ const Product = () => {
               {product.categories.map((cat, catIdx) => (
                 <li key={cat}>
                   <div className="flex items-center text-sm">
-                    <a href={cat} className="font-medium text-gray-500 hover:text-gray-900">
+                    <Link
+                      to={`/products/${product.categories.slice(0, catIdx + 1).join("/")}`}
+                      className="font-medium text-gray-500 hover:text-gray-900"
+                    >
                       {cat}
-                    </a>
+                    </Link>
                     {catIdx !== product.categories.length - 1 ? (
                       <svg
                         viewBox="0 0 20 20"
@@ -81,7 +84,7 @@ const Product = () => {
 
           <div className="mt-4">
             <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              {product.title} ({product.color})
+              {product.title} | {product.color.toUpperCase()}
             </h1>
           </div>
 
@@ -103,6 +106,7 @@ const Product = () => {
               <p className="ml-2 text-sm text-gray-500">In stock and ready to ship</p>
             </div>
           </section>
+
           {/* Product form */}
           <div className="mt-10 lg:max-w-lg lg:col-start-1 lg:row-start-2 lg:self-start">
             <section aria-labelledby="options-heading">

@@ -1,18 +1,20 @@
 import React from "react";
-import News from "../components/News";
 import Navbar from "../components/Navbar";
-import Carousel from "../components/Carousel";
-import Products from "../components/Products";
-import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import Promo from "../components/Promo";
+import Category from "../components/Category";
+import Popular from "../components/Popular";
+import Newsletter from "../components/Newsletter";
 
 const Home = () => {
   return (
     <div>
-      <News />
-      <Navbar />
-      <Carousel />
-      <Products />
+      <nav>
+        <Navbar />
+      </nav>
+      <Promo />
+      <Category />
+      <Popular />
       <Newsletter />
       <Footer />
     </div>
