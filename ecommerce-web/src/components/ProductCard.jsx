@@ -14,7 +14,7 @@ const ProductCard = ({ item }) => {
           {item.title}
         </Link>
       </h3>
-      <p className="mt-1 text-sm text-gray-500">{item.color[0].toUpperCase() + item.color.substring(1)}</p>
+      <p className="mt-1 text-sm text-gray-500">{item.color}</p>
       <p className="mt-1 text-sm font-medium text-gray-900">€ {item.price}</p>
     </div>
   );

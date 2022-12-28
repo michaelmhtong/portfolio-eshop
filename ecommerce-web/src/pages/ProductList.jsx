@@ -22,7 +22,7 @@ const ProductList = () => {
 
   console.log(cat);
   return (
-    <div>
+    <div className="bg-white">
       <div>
         <Navbar />
       </div>
@@ -36,7 +36,7 @@ const ProductList = () => {
                     to={`/products/${cat.slice(0, itemIdx + 1).join("/")}`}
                     className="font-medium text-gray-900 hover:text-gray-500"
                   >
-                    {item[0].toUpperCase() + item.substring(1)}
+                    {item}
                   </Link>
                   {itemIdx !== cat.length - 1 ? (
                     <svg

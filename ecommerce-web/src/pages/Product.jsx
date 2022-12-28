@@ -42,7 +42,7 @@ const Product = () => {
   }
 
   return (
-    <div>
+    <div className="bg-white">
       <Navbar />
       <div className="max-w-2xl mx-auto py-6 px-6 sm:py-6 sm:px-6 lg:max-w-7xl lg:py-16 lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
         {/* Product image */}
@@ -53,7 +53,7 @@ const Product = () => {
         </div>
 
         {/* Product details */}
-        <div className="sm:py-10 lg:max-w-lg lg:self-center">
+        <div className="py-10 lg:max-w-lg lg:self-center">
           <nav aria-label="Breadcrumb">
             <ol role="list" className="flex items-center space-x-2">
               {product.categories.map((cat, catIdx) => (
@@ -84,7 +84,7 @@ const Product = () => {
 
           <div className="mt-4">
             <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              {product.title} | {product.color.toUpperCase()}
+              {product.title} | {product.color}
             </h1>
           </div>
 
@@ -127,7 +127,7 @@ const Product = () => {
                           value={size}
                           className={({ active }) =>
                             classNames(
-                              active ? "ring-2 ring-indigo-500" : "",
+                              active ? "ring-2 ring-gray-500" : "",
                               "relative block border border-gray-300 rounded-lg p-4 cursor-pointer focus:outline-none"
                             )
                           }
@@ -140,7 +140,7 @@ const Product = () => {
                               <div
                                 className={classNames(
                                   active ? "border" : "border-2",
-                                  checked ? "border-indigo-500" : "border-transparent",
+                                  checked ? "border-gray-500" : "border-transparent",
                                   "absolute -inset-px rounded-lg pointer-events-none"
                                 )}
                                 aria-hidden="true"
@@ -156,7 +156,7 @@ const Product = () => {
                 <div className="mt-10">
                   <button
                     type="submit"
-                    className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                    className="w-full bg-gray-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500"
                   >
                     Add to bag
                   </button>
