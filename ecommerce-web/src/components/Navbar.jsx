@@ -254,9 +254,9 @@ const Navbar = () => {
                               >
                                 {section.items.map((item) => (
                                   <li key={item.name} className="flow-root">
-                                    <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                                    <Link to={item.href} className="-m-2 block p-2 text-gray-500">
                                       {item.name}
-                                    </a>
+                                    </Link>
                                   </li>
                                 ))}
                               </ul>
@@ -344,10 +344,10 @@ const Navbar = () => {
                                                 className="object-cover object-center"
                                               />
                                             </div>
-                                            <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                            <Link to={item.href} className="mt-6 block font-medium text-gray-900">
                                               <span className="absolute inset-0 z-10" aria-hidden="true" />
                                               {item.name}
-                                            </a>
+                                            </Link>
                                             <p aria-hidden="true" className="mt-1">
                                               Shop now
                                             </p>
@@ -367,9 +367,9 @@ const Navbar = () => {
                                             >
                                               {section.items.map((item) => (
                                                 <li key={item.name} className="flex">
-                                                  <a href={item.href} className="hover:text-gray-800">
+                                                  <Link to={item.href} className="hover:text-gray-800">
                                                     {item.name}
-                                                  </a>
+                                                  </Link>
                                                 </li>
                                               ))}
                                             </ul>
