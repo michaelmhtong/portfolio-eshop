@@ -56,31 +56,55 @@ const Products = ({ cat, products }) => {
     setSort("newest");
   };
 
+console.log(filters)
+
   return (
-    <div className="px-16 my-10">
-      <div>
-        Filter:
-        <select ref={colorSelectRef} name="color" onChange={handleFilters} className="select select-sm w-full max-w-xs">
-          <option disabled>Color</option>
+    <div>
+      <div className="flex items-center justify-between mt-4">
+        <p className="font-medium">Filters</p>
+        <button
+          onClick={handleReset}
+          class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
+        >
+          Reset Filter
+        </button>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
+        <select
+          ref={colorSelectRef}
+          name="color"
+          onChange={handleFilters}
+          className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+        >
+          <option selected="selected">Color</option>
           {uniqueColors.map((color) => (
             <option key={color}>{color}</option>
           ))}
         </select>
-        <select ref={sizeSelectRef} name="size" onChange={handleFilters} className="select select-sm w-full max-w-xs">
-          <option disabled>Size</option>
+        <select
+          ref={sizeSelectRef}
+          name="size"
+          onChange={handleFilters}
+          className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+        >
+          <option selected="selected">Size</option>
           {uniqueSizes.map((size) => (
             <option key={size}>{size}</option>
           ))}
         </select>
-        <select name="sort" onChange={handleSort} className="select select-sm w-full max-w-xs">
+        <select
+          name="sort"
+          onChange={handleSort}
+          className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+        >
           <option disabled>Sort by</option>
           <option value="newest">Newest</option>
           <option value="asc">Price: low to high</option>
           <option value="desc">Price: high to low</option>
         </select>
-        <button onClick={handleReset}>Reset</button>
       </div>
-      <div className="grid grid-cols-4 gap-4">
+
+      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
         {cat.includes("all")
           ? products.map((item) => <ProductCard item={item} key={item.id} />)
           : filteredProducts.map((item) => <ProductCard item={item} key={item.id} />)}

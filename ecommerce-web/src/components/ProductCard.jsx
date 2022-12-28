@@ -4,13 +4,18 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 
 const ProductCard = ({ item }) => {
   return (
-    <div className="relative">
-      <Link to={`/product/${item._id}`}>
-        <img className="hover:opacity-50" src={item.img} />
-      </Link>
-      <div>
-        <HeartIcon className="h-6 y-6 absolute top-5 right-5 text-gray-500 hover:text-red-800" />
+    <div key={item.id} className="group relative md:py-6">
+      <div className="w-full h-56 bg-gray-200 rounded-md overflow-hidden group-hover:opacity-75 lg:h-72 xl:h-80">
+        <img src={item.img} alt={item.title} className="w-full h-full object-center object-cover" />
       </div>
+      <h3 className="mt-4 text-sm font-medium text-gray-700">
+        <Link to={`/product/${item._id}`}>
+          <span className="absolute inset-0" />
+          {item.title}
+        </Link>
+      </h3>
+      <p className="mt-1 text-sm text-gray-500">{item.color[0].toUpperCase() + item.color.substring(1)}</p>
+      <p className="mt-1 text-sm font-medium text-gray-900">€ {item.price}</p>
     </div>
   );
 };
