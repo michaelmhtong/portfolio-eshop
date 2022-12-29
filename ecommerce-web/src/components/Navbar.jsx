@@ -1,8 +1,7 @@
 import React from "react";
 import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/userRedux";
+import { useSelector } from "react-redux";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { Bars3Icon, UserIcon, ShoppingBagIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../image/logo.svg";
@@ -151,12 +150,7 @@ function classNames(...classes) {
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
 
   const isLogin = user.currentUser;
 
@@ -209,8 +203,8 @@ const Navbar = () => {
                             key={category.name}
                             className={({ selected }) =>
                               classNames(
-                                selected ? "text-indigo-600 border-indigo-600" : "text-gray-900 border-transparent",
-                                "flex-1 whitespace-nowrap border-b-2 py-4 px-1 text-base font-medium"
+                                selected ? "text-gray-600" : "text-gray-900 border-transparent",
+                                "flex-1 whitespace-nowrap py-4 px-1 text-base font-medium"
                               )
                             }
                           >
@@ -248,7 +242,7 @@ const Navbar = () => {
                                 {section.name}
                               </p>
                               <ul
-                                role="list"
+                                role="navigation"
                                 aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
                                 className="mt-6 flex flex-col space-y-6"
                               >
@@ -274,15 +268,15 @@ const Navbar = () => {
 
         <header className="relative bg-white z-10">
           <p className="flex h-10 items-center justify-center bg-[#f6f1eb] px-4 text-sm font-medium text-grey-900 sm:px-6 lg:px-8">
-            Get free delivery on orders over € 100
+            Get express delivery on orders over € 500
           </p>
 
           <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="border-b border-gray-200">
+            <div className="">
               <div className="flex h-16 items-center">
                 <button
                   type="button"
-                  className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
+                  className="bg-white p-2 text-gray-400 lg:hidden"
                   onClick={() => setOpen(true)}
                 >
                   <span className="sr-only">Open menu</span>
@@ -294,7 +288,6 @@ const Navbar = () => {
                   <Link to="/">
                     <span className="sr-only">Company</span>
                     <img className="h-8 w-auto" src={Logo} alt="logo" />
-                    {/* <img src="../image/logo.svg" alt="logo" /> */}
                   </Link>
                 </div>
 
@@ -309,9 +302,9 @@ const Navbar = () => {
                               <Popover.Button
                                 className={classNames(
                                   open
-                                    ? "border-indigo-600 text-indigo-600"
+                                    ? "text-gray-600"
                                     : "border-transparent text-gray-700 hover:text-gray-800",
-                                  "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
+                                  "relative z-10 -mb-px flex items-center pt-px text-sm font-medium transition-colors duration-200 ease-out"
                                 )}
                               >
                                 {category.name}
@@ -361,7 +354,7 @@ const Navbar = () => {
                                               {section.name}
                                             </p>
                                             <ul
-                                              role="list"
+                                              role="main"
                                               aria-labelledby={`${section.name}-heading`}
                                               className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                             >

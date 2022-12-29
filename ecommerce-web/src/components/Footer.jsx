@@ -95,7 +95,7 @@ const Footer = () => {
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Services</h3>
-                <ul role="list" className="mt-4 space-y-4">
+                <ul role="navigation" className="mt-4 space-y-4">
                   {navigation.services.map((item) => (
                     <li key={item.name}>
                       <a href={item.href} className="text-sm text-gray-500 hover:text-gray-900">
@@ -107,7 +107,7 @@ const Footer = () => {
               </div>
               <div className="mt-12 md:mt-0">
                 <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Orders</h3>
-                <ul role="list" className="mt-4 space-y-4">
+                <ul role="navigation" className="mt-4 space-y-4">
                   {navigation.orders.map((item) => (
                     <li key={item.name}>
                       <a href={item.href} className="text-sm text-gray-500 hover:text-gray-900">
@@ -121,7 +121,7 @@ const Footer = () => {
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">MHT Studio</h3>
-                <ul role="list" className="mt-4 space-y-4">
+                <ul role="navigation" className="mt-4 space-y-4">
                   {navigation.company.map((item) => (
                     <li key={item.name}>
                       <a href={item.href} className="text-sm text-gray-500 hover:text-gray-900">
@@ -133,7 +133,7 @@ const Footer = () => {
               </div>
               <div className="mt-12 md:mt-0">
                 <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
-                <ul role="list" className="mt-4 space-y-4">
+                <ul role="navigation" className="mt-4 space-y-4">
                   {navigation.legal.map((item) => (
                     <li key={item.name}>
                       <a href={item.href} className="text-sm text-gray-500 hover:text-gray-900">

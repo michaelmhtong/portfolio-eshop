@@ -80,9 +80,9 @@ const Login = () => {
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-gray-600 hover:text-gray-500">
+              <div className="font-medium text-gray-600 hover:text-gray-500">
                 Forgot your password?
-              </a>
+              </div>
             </div>
           </div>
           <div>

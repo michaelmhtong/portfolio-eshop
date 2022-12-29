@@ -58,7 +58,7 @@ const Success = () => {
             </dl>
 
             <ul
-              role="list"
+              role="main"
               className="mt-6 text-sm font-medium text-gray-500 border-t border-gray-200 divide-y divide-gray-200"
             >
               {order.products.map((product) => (
@@ -138,10 +138,10 @@ const Success = () => {
             </dl>
 
             <div className="mt-16 border-t border-gray-200 py-6 text-right">
-              <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+              <div className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                 <Link to="/">Continue Shopping</Link>
                 <span aria-hidden="true"> &rarr;</span>
-              </a>
+              </div>
             </div>
           </div>
         </div>

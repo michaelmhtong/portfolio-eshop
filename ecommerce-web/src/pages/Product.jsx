@@ -11,11 +11,11 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
-
+  const quantity = 1;
+  
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -55,7 +55,7 @@ const Product = () => {
         {/* Product details */}
         <div className="py-10 lg:max-w-lg lg:self-center">
           <nav aria-label="Breadcrumb">
-            <ol role="list" className="flex items-center space-x-2">
+            <ol role="main" className="flex items-center space-x-2">
               {product.categories.map((cat, catIdx) => (
                 <li key={cat}>
                   <div className="flex items-center text-sm">

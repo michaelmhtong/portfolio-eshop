@@ -28,7 +28,7 @@ const ProductList = () => {
       </div>
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:py-8 lg:px-8">
         <nav aria-label="Breadcrumb">
-          <ol role="list" className="flex items-center space-x-2">
+          <ol role="main" className="flex items-center space-x-2">
             {cat.map((item, itemIdx) => (
               <li key={item}>
                 <div className="flex items-center text-lg">
