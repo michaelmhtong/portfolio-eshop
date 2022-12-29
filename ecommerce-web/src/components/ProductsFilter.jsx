@@ -8,6 +8,7 @@ const Products = ({ cat, products }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const colorSelectRef = useRef(null);
   const sizeSelectRef = useRef(null);
+  const sortSelectRef = useRef(null);
 
   const uniqueColors = [...new Set(filteredCat.map((product) => product.color))].sort();
   const uniqueSizes = [...new Set(filteredCat.flatMap((product) => product.size))].sort();
@@ -50,13 +51,14 @@ const Products = ({ cat, products }) => {
   }, [products, cat]);
 
   const handleReset = () => {
-    colorSelectRef.current.value = "";
-    sizeSelectRef.current.value = "";
+    colorSelectRef.current.value = "color";
+    sizeSelectRef.current.value = "size";
+    sortSelectRef.current.value = "newest";
     setFilters({});
     setSort("newest");
   };
 
-console.log(filters)
+  console.log(filters);
 
   return (
     <div>
@@ -76,7 +78,9 @@ console.log(filters)
           onChange={handleFilters}
           className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
         >
-          <option selected="selected">Color</option>
+          <option disabled value="color">
+            Color
+          </option>
           {uniqueColors.map((color) => (
             <option key={color}>{color}</option>
           ))}
@@ -87,12 +91,15 @@ console.log(filters)
           onChange={handleFilters}
           className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
         >
-          <option selected="selected">Size</option>
+          <option disabled value="size">
+            Size
+          </option>
           {uniqueSizes.map((size) => (
             <option key={size}>{size}</option>
           ))}
         </select>
         <select
+          ref={sortSelectRef}
           name="sort"
           onChange={handleSort}
           className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
