@@ -28,7 +28,7 @@ const Register = () => {
   };
 
   // check the validation of email
-  const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
     setValidEmail(result);
