@@ -78,9 +78,7 @@ const Products = ({ cat, products }) => {
           onChange={handleFilters}
           className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
         >
-          <option disabled value="color">
-            Color
-          </option>
+          <option value="color">Color</option>
           {uniqueColors.map((color) => (
             <option key={color}>{color}</option>
           ))}
@@ -91,9 +89,7 @@ const Products = ({ cat, products }) => {
           onChange={handleFilters}
           className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
         >
-          <option disabled value="size">
-            Size
-          </option>
+          <option value="size">Size</option>
           {uniqueSizes.map((size) => (
             <option key={size}>{size}</option>
           ))}
