@@ -8,7 +8,6 @@ import { clearCart } from "../redux/cartRedux";
 const Success = () => {
   const location = useLocation();
   const [order, setOrder] = useState({});
-  const [loading, setLoading] = useState(true);
   const id = location.pathname.split("/")[2];
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
@@ -22,7 +21,6 @@ const Success = () => {
           },
         });
         setOrder(res.data);
-        setLoading(false);
         dispatch(clearCart()); // delete cart items
       } catch (err) {
         console.log(err);
@@ -30,10 +28,6 @@ const Success = () => {
     };
     getOrder();
   }, [id]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <main className="relative lg:min-h-full">
