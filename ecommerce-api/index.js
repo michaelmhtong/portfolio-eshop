@@ -8,9 +8,9 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const orderRoute = require("./routes/order");
 const paymentRoute = require("./routes/stripe");
+const adyenPaymentRoute = require("./routes/adyen");
 
 dotenv.config();
-app.use(cors());
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -26,7 +26,8 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/payment", paymentRoute);
+app.use("/api/adyenpayment", adyenPaymentRoute);
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 8080, () => {
   console.log(`Backend server is running on port ${process.env.PORT}`);
 });
