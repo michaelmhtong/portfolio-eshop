@@ -32,7 +32,9 @@ const AdyenButton = () => {
   return (
     <Link to={`/adyen-checkout`}>
       <button
-        className={`w-full bg-gray-600 text-center border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500 ${products.length} === 0 ? "cursor-not-allowed" : ""}`}
+        className={`w-full bg-gray-600 text-center border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500 ${
+          products.length === 0 ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
         type="button"
         onClick={() => handleAdyenCheckOut()}
         disabled={products.length === 0}
