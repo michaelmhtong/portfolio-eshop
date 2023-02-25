@@ -4,12 +4,14 @@ import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
+import AdyenSuccess from "./pages/AdyenSuccess";
 import Product from "./pages/Product";
 import Member from "./pages/Member";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SignIn from "./pages/SignIn";
+import Adyen from "./pages/Adyen";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -22,7 +24,9 @@ const App = () => {
         <Route path="/signin" element={user ? <Navigate replace to="/member" /> : <SignIn />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order/:id" element={<Success />} />
+        <Route path="/order" element={<AdyenSuccess />} />
         <Route path="/member" element={<Member />} />
+        <Route path="/adyen-checkout" element={<Adyen />} />
       </Routes>
       <ToastContainer position="bottom-left" autoClose={3000} />
     </Router>
