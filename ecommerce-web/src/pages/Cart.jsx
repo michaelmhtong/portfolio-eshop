@@ -1,10 +1,17 @@
-import { CheckIcon, QuestionMarkCircleIcon, XCircleIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
+import {
+  CheckIcon,
+  QuestionMarkCircleIcon,
+  XCircleIcon,
+  PlusIcon,
+  MinusIcon,
+} from "@heroicons/react/24/outline";
 import CheckoutButton from "../components/CheckoutButton";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, increaseQuantity, decreaseQuantity, removeProduct } from "../redux/cartRedux";
 import Navbar from "../components/Navbar";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
+import AdyenPayment from "../components/AdyenButton";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -32,12 +39,16 @@ const Cart = () => {
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:py-8 lg:px-8">
         <div className="flex items-center justify-between mt-4">
           <div className="pr-10 md:pr-0">
-            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Shopping Cart</h1>
-            <p className="mt-2 text-sm text-gray-500">Hurry! Checkout now to get a special discount!</p>
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+              Shopping Cart
+            </h1>
+            <p className="mt-2 text-sm text-gray-500">
+              Hurry! Checkout now to get a special discount!
+            </p>
           </div>
           <button
             onClick={handleClearCart}
-            class="px-4 py-2 bg-gray-400 hover:bg-gray-900 text-white text-sm font-medium rounded-md"
+            className="px-4 py-2 bg-gray-400 hover:bg-gray-900 text-white text-sm font-medium rounded-md"
           >
             Clear cart
           </button>
@@ -58,9 +69,15 @@ const Cart = () => {
                 </div>
               </div>
             ) : (
-              <ul role="main" className="border-t border-b border-gray-200 divide-y divide-gray-200">
+              <ul
+                role="main"
+                className="border-t border-b border-gray-200 divide-y divide-gray-200"
+              >
                 {cart.products.map((product) => (
-                  <li key={`${product._id}-${product.color}-${product.size}`} className="flex py-6 sm:py-10">
+                  <li
+                    key={`${product._id}-${product.color}-${product.size}`}
+                    className="flex py-6 sm:py-10"
+                  >
                     <div className="flex-shrink-0">
                       <img
                         src={product.img}
@@ -80,10 +97,14 @@ const Cart = () => {
                           <div className="mt-1 flex text-sm">
                             <p className="text-gray-500">{product.color}</p>
                             {product.size ? (
-                              <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">{product.size}</p>
+                              <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">
+                                {product.size}
+                              </p>
                             ) : null}
                           </div>
-                          <p className="mt-2 text-sm font-medium text-gray-900">€ {product.price * product.quantity}</p>
+                          <p className="mt-2 text-sm font-medium text-gray-900">
+                            € {product.price * product.quantity}
+                          </p>
                         </div>
 
                         <div className="mt-4 sm:mt-0 sm:pr-9 flex items-center">
@@ -110,7 +131,10 @@ const Cart = () => {
                       </div>
 
                       <p className="mt-4 flex text-sm text-gray-700 space-x-2">
-                        <CheckIcon className="flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
+                        <CheckIcon
+                          className="flex-shrink-0 h-5 w-5 text-green-500"
+                          aria-hidden="true"
+                        />
                         <span>Ships in 1 week</span>
                       </p>
                     </div>
@@ -151,7 +175,9 @@ const Cart = () => {
                     <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true" />
                   </div>
                 </dt>
-                <dd className="text-sm font-medium text-gray-900">-€ {cart.total >= 500 ? 20 : 0}.00</dd>
+                <dd className="text-sm font-medium text-gray-900">
+                  -€ {cart.total >= 500 ? 20 : 0}.00
+                </dd>
               </div>
               <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                 <dt className="text-base font-medium text-gray-900">Order total</dt>
@@ -163,6 +189,9 @@ const Cart = () => {
 
             <div className="mt-6">
               <CheckoutButton products={cart.products} />
+            </div>
+            <div className="mt-6">
+              <AdyenPayment />
             </div>
           </section>
         </div>
