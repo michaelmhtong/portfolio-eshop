@@ -8,6 +8,7 @@ import { clearCart } from "../redux/cartRedux";
 const Success = () => {
   const location = useLocation();
   const [order, setOrder] = useState({});
+  const [loading, setLoading] = useState(true);
   const id = location.pathname.split("/")[2];
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Success = () => {
           },
         });
         setOrder(res.data);
+        setLoading(false);
         dispatch(clearCart()); // delete cart items
       } catch (err) {
         console.log(err);
@@ -28,6 +30,10 @@ const Success = () => {
     };
     getOrder();
   }, [id]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="relative lg:min-h-full">
@@ -42,9 +48,15 @@ const Success = () => {
       <div>
         <div className="max-w-2xl mx-auto py-16 px-4 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8 lg:py-24 lg:grid lg:grid-cols-2 lg:gap-x-8 xl:gap-x-24">
           <div className="lg:col-start-2">
-            <h1 className="text-sm font-medium text-indigo-600">Payment successful</h1>
-            <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Thanks for ordering</p>
-            <p className="mt-2 text-base text-gray-500">Hang tight and ship it very soon!</p>
+            <h1 className="text-sm font-medium text-indigo-600">
+              Payment successful
+            </h1>
+            <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+              Thanks for ordering
+            </p>
+            <p className="mt-2 text-base text-gray-500">
+              Hang tight and ship it very soon!
+            </p>
 
             <dl className="mt-16 text-sm font-medium">
               <dt className="text-gray-900">Order number</dt>
@@ -70,7 +82,9 @@ const Success = () => {
                       {product.color} | {product.size}
                     </p>
                   </div>
-                  <p className="flex-none font-medium text-gray-900">€ {product.price}</p>
+                  <p className="flex-none font-medium text-gray-900">
+                    € {product.price}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -104,7 +118,9 @@ const Success = () => {
                 </dd>
               </div>
               <div>
-                <dt className="font-medium text-gray-900">Payment Information</dt>
+                <dt className="font-medium text-gray-900">
+                  Payment Information
+                </dt>
                 <dd className="mt-2 space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
                   <div className="flex-none">
                     <svg
