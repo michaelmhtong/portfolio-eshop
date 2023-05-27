@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://mhtong-eshop-api.fly.dev/api/";
+const BASE_URL = "https://portfolio-eshop-api.onrender.com/api/";
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const currentUser = user && JSON.parse(user).currentUser;
